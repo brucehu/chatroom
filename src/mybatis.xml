@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+<!-- 
+	<properties resource="application.properties">
+    </properties>
+    <typeAliases>
+        <typeAlias type="com.talkyun.iaas.util.db.DBCPDataSourceFactory" alias="RHEA_DBCP" />
+    </typeAliases>
+ -->
+ 	<typeAliases>  
+       <package name="com.tx.chatroom.domain"/>  
+    </typeAliases> 
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC" />
+            <dataSource type="com.dmframe.dao.MyDataSourceFactory">
+                <property name="driverclassname" value="com.mysql.jdbc.Driver" />
+                <property name="url" value="jdbc:mysql://127.0.0.1:3306/chatroom?useUnicode=true&amp;characterEncoding=UTF-8" />
+                <property name="username" value="root" />
+                <property name="password" value="19821115" />
+                <property name="initialsize" value="2" />
+                <property name="maxactive" value="10" />
+                <property name="maxidle" value="5" />
+                <property name="maxwait" value="10000" />
+            </dataSource>
+        </environment>
+    </environments>
+    
+    <mappers>
+        <mapper resource="com/tx/chatroom/persistence/TecherMapper.xml" />
+        <mapper resource="com/tx/chatroom/persistence/UserMapper.xml" />
+        <mapper resource="com/tx/chatroom/persistence/LogMapper.xml" />
+        <mapper resource="com/tx/chatroom/persistence/PhoneQhpzMapper.xml" />
+        <mapper resource="com/tx/chatroom/persistence/WebAppMapper.xml" />
+        <mapper resource="com/tx/chatroom/persistence/QQMapper.xml" />
+    </mappers>
+</configuration>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tx.chatroom.persistence.TecherMapper">
+
+  <cache />
+	
+  <select id="getTecherByNameAndPwd" resultType="Techer">
+	  SELECT
+			id as userID,
+			techer_name as userName,
+			techer_pwd as passWord,
+			techer_nickname as nickName,
+			techer_title as techerTitle,
+			techer_icon as techerIcon
+		FROM cr_techer
+		WHERE techer_name=#{userName} and techer_pwd=#{passWord}
+  </select>
+  
+  <select id="getTecherListByGroup" resultType="Techer">
+	  SELECT
+			id as userID,
+			techer_name as userName,
+			techer_pwd as passWord,
+			techer_nickname as nickName,
+			techer_title as techerTitle,
+			techer_icon as techerIcon,
+			group_id as groupId
+		FROM cr_techer
+		WHERE group_id=#{group_id}
+  </select>
+  
+  
+  
+  <select id="getTecherList" resultType="Techer">
+  		SELECT
+			a.id as userID,
+			a.techer_name as userName,
+			a.techer_pwd as passWord,
+			a.techer_nickname as nickName,
+			a.techer_title as techerTitle,
+			a.techer_icon as techerIcon,
+			a.group_id as groupId,
+			b.group_name as groupName
+		FROM cr_techer a,cr_techer_group b where a.group_id=b.id
+  </select>
+  <select id="getTecherById" resultType="Techer">
+  		SELECT
+			id as userID,
+			techer_name as userName,
+			techer_pwd as passWord,
+			techer_nickname as nickName,
+			techer_title as techerTitle,
+			techer_icon as techerIcon,
+			group_id as groupId
+		FROM cr_techer WHERE id=#{userId};
+  </select>
+  <insert id="addTecher" parameterType="Techer">
+  	INSERT INTO cr_techer (techer_name,techer_pwd,techer_nickname,techer_title,techer_icon,group_id)   
+		VALUES (#{userName},#{passWord},#{nickName},#{techerTitle},#{techerIcon},#{groupId})   
+  </insert>
+  <update id="updateTecher" parameterType="Techer">
+  	UPDATE cr_techer SET 
+	  	techer_name=#{userName},
+	  	techer_pwd=#{passWord},
+	  	techer_nickname=#{nickName},
+	  	techer_title=#{techerTitle},
+	  	techer_icon=#{techerIcon},
+	  	group_id=#{groupId}
+  	 WHERE id=#{userID}
+  </update>
+  <delete id="deleteTecher">
+  	DELETE FROM cr_techer WHERE id=#{userId};
+  </delete>
+  
+  
+  
+  
+  <select id="getTecherGroupList" resultType="TecherGroup">
+	  SELECT
+			id as groupId,
+			group_name as groupName
+		FROM cr_techer_group
+  </select>
+  
+  <select id="getTecherGroupById" resultType="TecherGroup">
+  	SELECT
+			id as groupId,
+			group_name as groupName
+		FROM cr_techer_group where id=#{id}
+  </select>
+  
+  <insert id="addGroup">
+  	INSERT INTO cr_techer_group (group_name)   
+		VALUES (#{group_name})   
+  </insert>
+  <update id="updateGroup" parameterType="TecherGroup">
+  	UPDATE cr_techer_group SET group_name=#{groupName} WHERE id=#{groupId}
+  </update>
+  <delete id="deleteGroup">
+  	DELETE FROM cr_techer_group WHERE id=#{id};
+  </delete>
+  
+</mapper>

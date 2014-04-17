@@ -1,0 +1,178 @@
+@charset "utf-8";
+
+body {
+	/* background-image:url(../image/0449.jpg);
+	background-repeat: repeat repeat; */
+	background-color:#e0ecff;
+	font-size: 12px;
+	font-family: Tahoma, Geneva, sans-serif;
+}
+textarea{
+	resize: none;
+}
+ol,ul,li {
+	list-style: none;
+}
+
+.pop {
+	margin:3px;
+    padding:10px; 
+    background:#FC9; 
+    width:51%;
+    float:left;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+    border-radius:10px;
+}
+.pop2 {
+	margin:3px;
+    padding:10px; 
+    background:#ecf; 
+    width:51%;
+    float:right;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+    border-radius:10px;
+}
+
+#wallpapers {
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: -100;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+
+
+#desktopPanel {
+	width: 100%;
+	height: auto;
+	position: relative;
+	z-index: 1;
+}
+
+#desktopInnerPanel {
+	position: relative;
+}
+
+
+.responseBox {
+	border: 1px #ccc solid;
+	HEIGHT: 300px;
+	background-color: #fff;
+	margin: 5px;
+	padding: 5px;
+	overFlow-x: hidden;
+	overFlow-y: scroll;
+}
+
+.deskIcon {
+	width: 100%;
+	height: auto;
+	position: relative;
+	float: left;
+}
+
+.desktop_icon {
+	width: 86px;
+	height: 88px;
+	cursor: pointer;
+	margin-left: 100px;
+	text-align: center;
+}
+
+.desktop_icon span {
+	display: block;
+}
+
+.desktop_icon .text {
+	display: inline-block;
+	width: auto;
+	height: 22px;
+	line-height: 22px;
+	text-align: center;
+	color: #000;
+	background: url(../image/iconTextbg.png) no-repeat left center;
+	position: relative;
+	padding-left: 10px;
+	margin-right: 10px;
+	outline: none;
+	-moz-user-select: none;
+}
+
+.desktop_icon s {
+	display: inline-block;
+	width: 10px;
+	height: 22px;
+	position: absolute;
+	right: -10px;
+	top: 0;
+	background: url(../image/iconTextbg_right.png) left center no-repeat;
+}
+.desktop_icon img {
+	width:80%;
+}
+
+.gray_img {
+	filter:Gray;
+	-webkit-filter: grayscale(100%);
+}
+
+
+h4 {
+display: block;
+-webkit-margin-before: 1.33em;
+-webkit-margin-after: 1.33em;
+-webkit-margin-start: 0px;
+-webkit-margin-end: 0px;
+font-weight: bold;
+}
+
+.mryc {
+width: 240px;
+background: url(../image/spyc_03.png) no-repeat;
+height: 307px;
+margin-top: 2px;
+}
+.mryc_mq {
+padding: 77px 0 0 30px;
+color: #333333;
+}
+
+.mryc form {
+margin-top: 36px;
+}
+
+.spyc_input2 {
+width: 113px;
+height: 22px;
+background: #fff;
+line-height: 22px;
+border: 1px solid #8c939b;
+float: left;
+margin-left: 5px;
+}
+.spyc_input {
+width: 88px;
+height: 22px;
+background: #fff;
+line-height: 22px;
+border: 1px solid #8c939b;
+float: left;
+margin-left: 15px;
+}
+.yc_03 {
+background: url(../image/yc_03.jpg) no-repeat;
+width: 142px;
+height: 36px;
+border: none;
+}
+marquee[Attributes Style] {
+-internal-marquee-direction: up;
+height: 82px;
+-internal-marquee-increment: 3px;
+-internal-marquee-speed: 150ms;
+width: 180px;
+}

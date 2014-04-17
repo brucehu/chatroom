@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tx.chatroom.persistence.QQMapper">
+
+  <cache />  
+  
+  <select id="getCount" resultType="int">
+	  SELECT
+			count(id)
+		FROM qq
+  </select>
+  
+  <select id="getQQList" resultType="QQ">
+  		SELECT
+			id,
+			qq,
+			site,
+			ctime
+		FROM qq
+  </select>
+  <select id="getQQListPage" resultType="QQ">
+  		SELECT
+			id,
+			qq,
+			site,
+			ctime
+		FROM qq  limit #{begin},#{pageNum}
+  </select>
+  
+  <insert id="addQQ" parameterType="QQ">
+  	INSERT INTO qq (qq,site,ctime)   
+		VALUES (#{qq},#{site},#{ctime})
+  </insert>
+ 
+</mapper>

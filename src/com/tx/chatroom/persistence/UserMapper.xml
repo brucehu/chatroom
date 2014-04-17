@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tx.chatroom.persistence.UserMapper">
+
+  <cache  />  
+  
+  <update id="updateAdminPwd">
+  	UPDATE cr_admin SET password=#{passWord} WHERE name=#{userName}
+  </update>
+  <select id="getAdminByNameAndPwd" resultType="User" useCache="false">
+	  SELECT
+			name as userName,
+			password as passWord
+		FROM cr_admin
+		WHERE name=#{userName} and password=#{passWord}
+  </select>
+  
+  <select id="getUserByNameAndPwd" resultType="User">
+	  SELECT
+			id as userID,
+			user_name as userName,
+			user_pwd as passWord,
+			user_nickname as nickName
+		FROM cr_user
+		WHERE user_name=#{userName} and user_pwd=#{passWord}
+  </select>
+  
+  <select id="getCount" resultType="int">
+	  SELECT
+			count(id)
+		FROM cr_user
+  </select>
+  
+  <select id="getUserList" resultType="User">
+  		SELECT
+			id as userID,
+			user_name as userName,
+			user_pwd as passWord,
+			user_nickname as nickName
+		FROM cr_user
+  </select>
+  <select id="getUserListPage" resultType="User">
+  		SELECT
+			id as userID,
+			user_name as userName,
+			user_pwd as passWord,
+			user_nickname as nickName
+		FROM cr_user limit #{begin},#{pageNum}
+  </select>
+  <select id="getUserByID" resultType="User">
+	  SELECT
+			id as userID,
+			user_name as userName,
+			user_pwd as passWord,
+			user_nickname as nickName
+		FROM cr_user
+		WHERE id=#{id}
+  </select>
+  <insert id="addUser" parameterType="User">
+  	INSERT INTO cr_user (user_name,user_pwd,user_nickname)   
+		VALUES (#{userName},#{passWord},#{nickName})   
+  </insert>
+  <update id="updateUser" parameterType="User">
+  	UPDATE cr_user SET 
+	  	user_name=#{userName},
+	  	user_pwd=#{passWord},
+	  	user_nickname=#{nickName}
+  	 WHERE id=#{userID}
+  </update>
+  <delete id="deleteUser">
+  	DELETE FROM cr_user WHERE id=#{userId};
+  </delete>
+  
+</mapper>

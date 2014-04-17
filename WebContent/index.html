@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>易算师</title>
+<meta name="viewport"
+	content="minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0, width=device-width, user-scalable=no">
+<link rel="icon" href="/chatroom/yisuanshi.ico" type="image/x-icon" />  
+<link rel="shortcut icon" href="/chatroom/yisuanshi.ico" type="image/x-icon" /> 
+<link rel="bookmark" href="/chatroom/yisuanshi.ico" type="image/x-icon" />
+<link rel="stylesheet"
+	href="jquery-ui-1.10.3.custom/css/ui-lightness/jquery-ui-1.10.3.custom.css" />
+<link rel="stylesheet" href="js/desktop.css" />
+<link rel="stylesheet" href="js/window.css" />
+<script type="text/javascript" src="javascript-clock/action_clock.js" ></script>
+<script type="text/javascript" src="javascript-clock/clock.js" ></script>
+
+<script src="jquery-ui-1.10.3.custom/js/jquery-1.9.1.js"></script>
+<script src="jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.js"></script>
+<script src="js/windows.js"></script>
+<script src="js/socket.js"></script>
+
+<script src="js/client.js"></script>
+
+</head>
+<body>
+<div>
+	<img src="image/logo_03.png" />
+	<div id="footer" style="float:left;z-index:1;position: absolute;">
+		<div style="color: #F00;font-size: 18px;font-weight: 700;width: 340px;">公司网站：<a href="http://www.4000080676.com" target="_blank">www.4000080676.com</a></div>
+		<div style="color: #F00;font-size: 18px;font-weight: 700;width: 340px;">全国免费财富热线：400-0080-0676</div>
+	</div>
+</div>
+<!-- <div>
+<img src="image/logo_03.png" />
+</div>
+<div id="footer" style="z-index:1;position: absolute;">
+	<div style="color: #F00;font-size: 18px;font-weight: 700;width: 340px;">公司网站：<a href="http://www.4000080676.com" target="_blank">www.4000080676.com</a></div>
+	<div style="color: #F00;font-size: 18px;font-weight: 700;width: 340px;">全国免费财富热线：400-0080-0676</div>
+</div> -->
+	
+	<div id="desktopPanel" style="width: 50%; height: 266px; margin-top: 80px; margin-left: 73px; margin-bottom: 75px;">
+		<div id="desktopInnerPanel" style="width: 100%; height: 266px;">
+			<ul class="deskIcon" style="width: 100%; height: 266px; margin-right: 73px;">
+			  <li class="desktop_icon" id="app7" style="position: absolute; margin: 0px; left: 30px; top: 20px;"> <span class="icon"><img src="image/app7.png"></span> <div class="text">实战体验<s></s></div> </li>
+			  <li class="desktop_icon" id="app1" style="position: absolute; margin: 0px; left: 30px; top: 140px;"> <span class="icon"><img src="image/app1.png"></span> <div class="text">投资日报<s></s></div> </li>
+			  <li class="desktop_icon" id="app2" style="position: absolute; margin: 0px; left: 30px; top: 260px;"> <span class="icon"><img src="image/app2.png"></span> <div class="text">操作建议<s></s></div> </li>
+			  <li class="desktop_icon" id="app3" style="position: absolute; margin: 0px; left: 30px; top: 380px;"> <span class="icon"><img src="image/app3.png"></span> <div class="text">经典战绩<s></s></div> </li>
+			  <li class="desktop_icon" id="app4" style="position: absolute; margin: 0px; left: 150px; top: 20px;"> <span class="icon"><img src="image/app4.png"></span> <div class="text">收盘点评<s></s></div> </li>
+			  <li class="desktop_icon" id="app5" style="position: absolute; margin: 0px; left: 150px; top: 140px;"> <span class="icon"><img src="image/app5.png"></span> <div class="text">盘中提示<s></s></div> </li>
+			  <li class="desktop_icon" id="app6" style="position: absolute; margin: 0px; left: 150px; top: 260px;"> <span class="icon"><img src="image/app6.png"></span> <div class="text">操盘日记<s></s></div> </li>
+			  </ul>
+		</div>
+	</div>
+	
+	<div id="chat_window"  class="window" style="z-index:5;border-radius: 5px;background-color:#fff;width: 500px; left: 500px; top: 30px; display: block; position: absolute;">
+		<div class="win_title">
+			<b id="toUserText">聊天窗口</b>
+			<span class="win_btnblock">
+				<a href="#" class="winClose" title="关闭"></a>
+			</span>
+		</div>
+		<div id="win_body">
+			<div id="pollMessage" class="responseBox">
+				
+			</div>
+			<div id="send_message"><textarea id="message" rows="5" cols="" style="margin: 5px;width:100%"></textarea></div>
+			<div><div id="toast" style="float:left;margin: 5px;width:100px;height:20px"></div><button id="btn_send" style="float:right;margin-right: 20px;">发送（回车）</button></div>
+		</div>
+	</div>
+	
+	<div id="login_window" class="window" style="z-index:5;border-radius: 5px;background-color:#fff;width: 350px;height=300px; display: block; position: absolute;">
+		<div class="win_title">
+			<b id="loginText">请先登录</b>
+			<span class="win_btnblock">
+				<a href="#" class="winClose" title="关闭"></a>
+			</span>
+		</div>
+		<div class="win_body">
+		<p style="text-align:center">如果不登录，只能使用部分APP，但是无法与老师对话</p>
+		<table>
+		<tr><td width="50%" style="text-align:right">用户名：</td><td><input type="text" id="text_userID" value="" /></td></tr>
+		<tr><td style="text-align:right">密码：</td><td><input type="password" id="text_password" value="" /></td></tr>
+		<tr><td colspan="2" align="center"><input id="btn_login" type="button" value="  登录  " /></td></tr>
+		</table>
+		</div>
+	</div>
+	
+	
+	<div  id="techer_list" class="window" style="z-index:5;position:absolute;top:10px;left:500px;width: 200px; height: 520px; ">
+		<div class="win_title">
+			<b>分析师在线</b>
+		</div>
+		<div class="win_body" id="accordion">
+			
+		</div>
+		<div class="win_bottom"></div>
+	</div>
+	
+	<div id="yuce" class="mryc" style="z-index:1;position:absolute;-moz-border-radius: 8px;-webkit-border-radius: 8px;border-radius:8px;">
+	    <div class="mryc_mq">
+			<marquee direction="up" height="82" scrollamount="3" scrolldelay="150" width="180" onmouseover="this.stop()" onmouseout="this.start()">
+	                    1401大豆 138****1541<br>
+			&nbsp; &nbsp; &nbsp; &nbsp;你好，大豆怎么看呢？<br>
+			预测:<br>
+			&nbsp; &nbsp; &nbsp; 您好，根据我们的软件信号提示，大豆今天是以整理为主。<br>
+			1401沪胶 155****3568<br>
+			&nbsp; &nbsp; &nbsp; 你好，橡胶可以做多了吗？<br>
+			预测 :<br>
+			&nbsp; &nbsp; &nbsp; &nbsp;您好，根据我们的软件信号提示，橡胶今天是以空为主，多头减持<br>
+			1401棉花 155****3568<br>
+			&nbsp; &nbsp; &nbsp; &nbsp;你好，棉花是什么趋势？<br>
+			预测:<br>
+			&nbsp; &nbsp; &nbsp; &nbsp;您好，根据我们的软件信号提示，棉花中短线来说还是以区间整理为主，空单减持<br>
+			1401豆粕 138****254<br>
+			&nbsp; &nbsp; &nbsp; &nbsp;你好，豆粕怎么看呢？<br>
+			预测:<br>
+			&nbsp; &nbsp; &nbsp; 您好，根据我们的软件信号提示，豆粕是以整理为主。<br>
+			1401螺纹钢 158****3848<br>
+			&nbsp; &nbsp; &nbsp; 你好，螺纹钢可以做多了吗？<br>
+			预测 :<br>
+			&nbsp; &nbsp; &nbsp; &nbsp;您好，根据我们的软件信号提示，螺纹钢今天是以空为主，多头减仓<br>
+			</marquee>
+		</div>
+		<form name="myform" id="myform">
+			<input type="text" name="info[qhpz]" id="qhpz" value="期货品种" onblur="if(this.value == ''){this.style.color = '#ACA899'; this.value = '期货品种'; }" onfocus="if(this.value == '期货品种'){this.value =''; this.style.color = '#000000'; }" class="spyc_input">
+		    <input type="text" name="info[phone]" id="phone" value="接收结果的手机" onblur="if(this.value == ''){this.style.color = '#ACA899'; this.value = '接收结果的手机'; }" onfocus="if(this.value == '接收结果的手机'){this.value =''; this.style.color = '#000000'; }" class="spyc_input2">
+	        <h4 style="margin-left:48px; padding-top:68px;"><input type="button" name="dosubmit" id="dosubmit" class="yc_03" value=""></h4>
+		</form>
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,256 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>login</title>
+<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+<script>
+var userID;
+var roomID;
+var roomText;
+var isLogin=false;
+window.onbeforeunload = function() { 
+	//alert("onbeforeunload");
+	if(isLogin){
+		logout();
+	}
+};
+window.onunload = function() { 
+	//alert("onunload");
+	if(isLogin){
+		logout();
+	}
+};
+$(document).ready(function() {
+	$.ajaxSetup({cache: false });
+	$("#chatForm").hide();
+	//alert($("#pollMessage")[0].offsetHeight);
+	var top=Math.max(0,$("#pollMessage")[0].scrollHeight-$("#pollMessage")[0].offsetHeight);
+	//alert(top);
+	$("#pollMessage").scrollTop(top);
+	$("#login").click(function(){
+		login();
+	});
+	$("#logout").click(function(){
+		logout();
+	});
+	$("#send").click(function(){
+		send();
+	});
+});
+
+
+	
+function login(){
+	userID=$("#userID").val();
+	roomID=$("#roomID").val();
+	roomText=$("#roomID").text();
+	$.ajax({
+		type : "get", //使用get方法访问后台
+		dataType : "json", //返回json格式的数据
+		url : "ChatMainServlet", //要访问的后台地址
+		data : {
+			userID : userID,
+			roomID : roomID,
+			messageType:"login"
+		}, //要发送的数据
+		complete : function() {
+			//console.log('login complete');
+		}, //AJAX请求完成时
+		error : function() {
+			alert("error");
+			////console.log('login error');
+		},
+		success : function(msg) { //msg为返回的数据，在这里做数据绑定
+			//alert(msg);
+			var status = msg.status;
+			if (status == 0) {
+				isLogin=true;
+				alert(msg.message);
+				$("#loginForm").hide();
+				$("#chatForm").show();
+				$("#tempuserID").val(userID);
+				$("#toUserID").val("techer_cang");
+				//$("#pollMessage").append("<p>欢迎用户"+userID+"进入聊天室</p>");
+				poll();
+			} else if (status == 1) {
+				alert(msg.message);
+			}
+		}
+	});
+}
+
+function logout(){
+	$.ajax({
+		type : "get", //使用get方法访问后台
+		dataType : "json", //返回json格式的数据
+		url : "ChatMainServlet", //要访问的后台地址
+		data : {
+			userID : userID,
+			messageType:"logout"
+		}, //要发送的数据
+		complete : function() {
+			//console.log('login complete');
+		}, //AJAX请求完成时
+		error : function() {
+			alert("error");
+			////console.log('login error');
+		},
+		success : function(msg) { //msg为返回的数据，在这里做数据绑定
+			//alert(msg);
+			var status = msg.status;
+			if (status == 0) {
+				isLogin=false;
+				alert(msg.message);
+				$("#loginForm").show();
+				$("#chatForm").hide();
+				$("#pollMessage").html("");
+			} else if (status == 1) {
+				window.location.href = msg.redirect;
+			}
+		}
+	});
+}
+
+function send(){
+	//alert("send");
+	var message=$("#message").val();
+	var toUserID=$("#toUserID").val();
+	$("#resMessage").html("");
+	$.ajax({
+		type : "get", //使用get方法访问后台
+		dataType : "json", //返回json格式的数据
+		url : "ChatMainServlet", //要访问的后台地址
+		data : {
+			userID : userID,
+			toUserID:toUserID,
+			message : message,
+			messageType:"push"
+		}, //要发送的数据
+		complete : function() {
+			//console.log('send complete');
+			//alert("complete");
+		}, //AJAX请求完成时
+		error : function() {
+			alert("error");
+			//console.log('send error');
+		},
+		success : function(msg) { //msg为返回的数据，在这里做数据绑定
+			var status = msg.status;
+			if (status == 0) {
+				//alert(msg.message);
+				$("#message").val("");
+				$("#resMessage").html(msg.message);
+			} else if (status == 1) {
+				//alert(msg.message);
+				$("#resMessage").html(msg.message);
+			}
+		}
+	});
+}
+
+function poll(){
+	//console.log('begin poll...');
+	if(!isLogin){
+		return;
+	}
+	$.ajax({
+		type : "get", //使用get方法访问后台
+		dataType : "json", //返回json格式的数据
+		url : "ChatMainServlet", //要访问的后台地址
+		data : {
+			userID : userID,
+			messageType:"poll"
+		}, //要发送的数据
+		complete : function() {
+			//alert("complete");
+			//console.log('poll complete');
+			poll();
+		}, //AJAX请求完成时
+		error : function() {
+			//alert("error");
+			//console.log('poll error');
+		},
+		success : function(msg) { //msg为返回的数据，在这里做数据绑定
+			if(msg.status==0){
+				$("#pollMessage").append("<p>"+msg.message+"</p>");
+				var top=Math.max(0,$("#pollMessage")[0].scrollHeight-$("#pollMessage")[0].offsetHeight);
+				//alert(top);
+				$("#pollMessage").scrollTop(top);
+			} else if (msg.status == 1) {
+				isLogin=false;
+				alert(msg.message);
+			}
+			//console.log('poll success');
+		}
+	});
+}
+</script>
+<style type="text/css">
+body,p{margin:0px; padding:0px; font-size:14px; color:#333; font-family:Arial, Helvetica, sans-serif;}
+.responseBox{
+	border:1px #ccc solid;
+    margin-left: 110px;
+    HEIGHT: 300px;
+    color:#000000;
+	
+	overFlow-x:hidden;  
+	overFlow-y:auto;  
+}
+.userlist{
+	HEIGHT: 300px;
+	width: 100px;
+	float: left;
+	border:1px #ccc solid;
+}
+
+#chatForm{
+	overflow-y:auto; 
+	overflow-x:hidden; 
+	position:relative;
+	width:98%;
+	margin: 5px auto;
+	border:1px #ccc solid;
+}
+</style>
+</head>
+<body>
+<div id="loginForm">
+	<form>
+	用户ID：
+		<input type="text" id="userID" name="userID" value=""/>
+		房间：<select id="roomID">
+		<option value="room1">techer_cang</option>
+		<option value="room2">techer_yang</option>
+		</select>
+		<!-- <input type="text" id="roomID" name="roomID" value="room1"/> -->
+		<input type="button" id="login" value="登录"/>
+	</form>
+</div>
+<div id="chatForm">
+
+	<div>
+		<div class="userlist">
+		<img src="http://img1.touxiang.cn/uploads/20130601/01-020734_278.jpg" width="100%"/>
+			<p>姓名：苍老师</p>
+			<p>称谓：金牌分析师</p>
+			<p>简介：苍老师是最牛的股票分析师。</p>
+		</div>
+		<div id="pollMessage" class="responseBox">
+			
+		</div>
+		
+	</div>
+	<div style="margin-top: 5px;">
+		<input type="text" id="tempuserID" name="userID" value="" disabled="disabled"/> 
+		对 :<input type="text" id="toUserID" name="toUserID" value="" disabled="disabled"/> 说：
+		<input type="text" id="message" name="message" value="" size="100px"/>
+		<input type="button" id="send" value="发送"/>
+		<input type="button" id="logout" value="退出"/>
+		<p id="resMessage"></p> 
+	</div>
+</div>
+
+
+</body>
+</html>

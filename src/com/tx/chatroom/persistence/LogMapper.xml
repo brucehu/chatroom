@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tx.chatroom.persistence.LogMapper">
+
+  <cache />
+	
+  
+  <insert id="addLog">
+	  INSERT INTO cr_chat_log (user_id,to_user_id,content,log_time)   
+		VALUES (#{userID},#{toUserID},#{content},#{logTime})   
+  </insert>
+  
+  
+</mapper>

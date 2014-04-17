@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tx.chatroom.persistence.WebAppMapper">
+
+  <cache />
+	
+  
+  <select id="getWebAppByAppid" resultType="WebApp">
+	  SELECT
+			id as id,
+			appid as appid,
+			content as content
+		FROM web_app
+		WHERE appid=#{appid}
+  </select>
+  
+  <update id="updateWebApp" parameterType="WebApp">
+  UPDATE web_app SET content=#{content} WHERE appid=#{appid}
+  </update>
+</mapper>
